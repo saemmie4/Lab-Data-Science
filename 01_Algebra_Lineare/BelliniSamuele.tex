@@ -6,7 +6,7 @@
 \usepackage{amsmath}
 \usepackage[font=it, width=0.9\linewidth]{caption}
 \usepackage{bm}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 % \usepackage{placeins} %non fa andare le figure in una sezione nella sezione dopo%
 % \usepackage[italian]{babel}
 \newcounter{count_es}
@@ -34,14 +34,14 @@ Data la matrice:
 è possibile ricavarne gli autovalori e i corrispondenti 
 autovettori utilizzando la funzione presente nel  pacchetto 
 NumPy di Python: \lstinline{np.linalg.eig(A)}. \\
-Otteniamo così gli autovalori:
+Si ottengono così gli autovalori:
 \begin{subequations}    
     \begin{align*}
         \lambda_{1} = (-1+i)\\
         \lambda_{2} = (-1-i)
     \end{align*}
 \end{subequations}
-e i corrispondendi autovettori:
+e i corrispondenti autovettori:
 \begin{subequations}    
     \begin{align*}
         \mathbf{v_{1}} &= (0.70710678, 0.70710678i)\\
@@ -123,8 +123,8 @@ principali delle singole calcolando gli autovalori delle matrici momento d'inerz
         \end{bmatrix}, \]
 dove \(m_{i}\) e \((x_{i}, y_{i}, z_{i})\) sono massa e posizione, relativa al centro di massa 
 della molecola, dell'atomo i-esimo che compone la molecola. Per fare ciò, una volta che sono state
-ricavate le posizioni rispetto al centro di massa e poi calcolata la matrice \(I\) della singola molecola,
-basterà utilizzare la linea di codice \lstinline{np.linalg.eigvalsh(I)} per ricavare i momenti d'intezia
+ricavate le posizioni degli atomi che compongono la molecola rispetto al centro di massa di quest'ultima e poi calcolata la matrice \(I\) della singola molecola,
+basterà utilizzare la linea di codice \lstinline{np.linalg.eigvalsh(I)} per ricavare i momenti d'inerzia
 principali, ordinati in ordine crescente. \\
 Si possono poi classificare le molecole in base alle relazioni tra i momenti d'inerzia \(I_{a}, I_{b}, I_{c}\) (con \(I_{a} \leq I_{b} \leq I_{c}\)) secondo 
 il seguente criterio:
@@ -137,7 +137,7 @@ il seguente criterio:
 Per fare ciò in Python si è preferito, invece di verificare che sussista l'uguaglianza esatta fra valori decimali, 
 che darebbe risultati incorretti a causa delle imprecisioni dei floating~point, oltre a possibili imprecisioni nel dataset stesso,
 andare a verificare che i valori dei momenti d'inerzia principali siano molto simili tramite la funzione \lstinline{math.isclose()}, nella quale
-è stato passato 0.01 come valore di tolleranza relativa (chiediamo quindi che la distanza fra i due valori sia minore o uguale all'1\% del valore massimo). \\
+è stato passato 0.01 come valore di tolleranza relativa (si chiede quindi che la distanza fra i due valori sia minore o uguale all'1\% del valore massimo). \\
 In questo modo è stato ottenuto il conteggio per categoria dal dataset fornito riportato in \tablename~\ref{tab:es_1c}.
 \begin{table}[H]
     \centering
@@ -162,15 +162,15 @@ Data la matrice:
         0 & 0 & 0 & 3 \\
         \epsilon & 0 & 0 & 0 \\
     \end{bmatrix}\]
-è possibile valutare come i suoi autovalori e valori singolari variano per piccole
+è possibile valutare come i suoi autovalori e valori singolari varino per piccole
 perturbazioni del parametro \(\epsilon\). Come caso di studio è stato preso \(\epsilon \in [0, 10^{-5}]\).
 Per calcolare i valori singolari di \(A\) è stata utilizzata la funzione
-\lstinline{np.linalg.svd(A)[1]}, dove con [1] andiamo a prendere il secondo oggetto 
+\lstinline{np.linalg.svd(A)[1]}, dove con [1] si seleziona il secondo oggetto 
 restituito dalla funzione \lstinline{svd}, che corrisponde al vettore di valori singolari.
 Per calcolare gli autovalori di \(A\), invece, è stata utilizzata la funzione
 \lstinline{np.linalg.eigvals(A)}, la quale restituisce direttamente il vettore di autovalori.
 I risultati di queste operazioni sono riportati in \figurename~\ref{fig:es_2a}.
-Si ossera così che i primi tre valori singolari rimangono costanti su tutto
+Si osserva così che i primi tre valori singolari rimangono costanti su tutto
 l'intervallo, mentre il quarto è sempre pari al valore della perturbazione \(\epsilon\); 
 gli autovalori, invece, sono sempre reali o immaginari puri, e la relazione fra \(\epsilon\) e 
 la parte non nulla è la stessa per ogni autovalore, a meno di riflessioni rispetto all'asse reale.
@@ -186,14 +186,14 @@ la parte non nulla è la stessa per ogni autovalore, a meno di riflessioni rispe
 \subsection*{ (\alph{count_sub_es})}
 Data un'immagine è possibile rappresentarla come un insieme di tre matrici reali
 con elementi \(\in [0,1]\), rappresentanti le componenti rosso, verde e blu dei pixel che
-compongono dell'immagine; per studiare l'andamento dei valori singolari delle matrici e come appare
+compongono l'immagine. Per studiare l'andamento dei valori singolari delle matrici e come appare
 l'immagine a vari livelli di accuratezza si potrebbe andare a lavorare sulla versione in bianco e nero dell'immagine,
-in modo da avere un'unica matrice, ma così facendo si perderebbero le informazioni cromatiche; per mantenere queste informazioni e ricavare
+in modo da avere un'unica matrice, ma così facendo si perderebbero le informazioni cromatiche; per mantenere queste informazioni e ricavarne
 infine un'immagine a colori si è preferito studiare singolarmente le tre componenti, per poi ricavarne l'immagine complessiva ricombinandole.
 Innanzitutto è stata calcolata l'SVD per ogni matrice delle componenti che compone l'immagine scelta (riportata in \figurename~\ref{fig:es_2b_1} a sinistra) tramite
 la linea di codice \lstinline{np.linalg.svd(img_i, full_matrices=True)},
 dove img\_i rappresenta una delle tre matrici di componenti, ed è stata graficata la somma cumulativa normalizzata dei valori singolari delle singole matrici in \figurename~\ref{fig:es_2b_1} a destra. 
-Osserviamo così che l'andamento dei valori singolari è pressocché identico per tutte le componenti, come ci si aspetta
+Si osserva così che l'andamento dei valori singolari è pressocché identico per tutte le componenti, come ci si aspetta
 da un'immagine in cui non sono presenti preferenze per nessuna componente specifica (in un'immagine completamente rossa, ad esempio, si trovano 
 valori singolari nulli per le componenti blu e verdi e non nulli solo nella componente rossa), e che la stragrande maggioranza dell'informazione è
 contenuta in pochi valori singolari; questo è evidente in \figurename~\ref{fig:es_2b_1} a destra, dove si può osservare come, con appena un terzo dei
@@ -201,14 +201,14 @@ valori singolari (circa 250 su 700), la somma cumulativa ha già superato il 90\
 \begin{figure}[H]
     \centering
     \includegraphics[width=.75\linewidth]{Es_2b_1.png}
-    \caption{A sinistra l'immagine originale, a destra il grafico delle somme cumulative normalizzare
+    \caption{A sinistra l'immagine originale, a destra il grafico delle somme cumulative normalizzate
     dei valori singolari delle singole componenti cromatiche, dove il colore della linea indica la rispettiva componente.\label{fig:es_2b_1}}
 \end{figure}
 Sapendo come variano i valori singolari si può scegliere un valore di cutoff, \(r \in {1, 2, ..., 700}\) 
 (il massimo valore di r è 700 perché, per questa immagine, è il valore minimo tra larghezza e altezza, in pixel, dell'immagine), che indica il numero di 
 valori singolari che verranno utilizzati per ricostruire l'immagine dalla decomposizione SVD delle componenti. 
-Si riportano, in \figurename~\ref{fig:es_2b_2}, il risultato di questa operazione per \(r=3,20,100,500\), 
-assieme alla differenza fra l'immagine originale e la ricostruzione. Si osserva bene come per valori di \(r\) molto piccoli la ricostruzione
+Si riporta, in \figurename~\ref{fig:es_2b_2}, il risultato di questa operazione per \(r=3,20,100,500\), 
+assieme alla differenza fra l'immagine originale e la ricostruzione. Dalle figure si osserva bene come per valori di \(r\) molto piccoli la ricostruzione
 è molto grossolana e mantiene solo le forme essenziali, per valori di \(r\) più grandi si perdono solo piccoli dettagli, e come, per \(r=500\),
 nella differenza rimane quasi esclusivamente rumore. Si noti anche che, nonostante l'utilizzo di molti più dati per ricostruire l'ultima immagine, la 
 differenza fra questa e la penultima sia minimale, evidenziando quindi come sia superfluo andare a utilizzare un numero così elevato di valori 
@@ -219,22 +219,7 @@ singolari, in quanto quasi tutta l'informazione è racchiusa in quelli precedent
     \caption{Ricostruzione dell'immagine per r = 3, 20, 100, 500 con la rispettiva differenza (in valore assoluto) dall'immagine originale. Si noti che
     nelle immagini della differenza è stato massimizzato il contrasto per renderle più visibili. \label{fig:es_2b_2}}
 \end{figure}
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-METTI CODICE SU GITHUB
-METTI CODICE SU GITHUB
-METTI CODICE SU GITHUB
-METTI CODICE SU GITHUB
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
 \section*{Codice}
-Il codice utilizzato per risolvere gli esercizi è consultabile su GitHub al link: 
+Il codice utilizzato per risolvere gli esercizi è consultabile su GitHub al link: \url{https://github.com/saemmie4/Lab-Data-Science}
 
 \end{document}
