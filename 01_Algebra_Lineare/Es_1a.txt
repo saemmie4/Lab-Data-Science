@@ -1,0 +1,15 @@
+Matrix A:
+[[-1  1]
+ [-1 -1]]
+
+Eigenvalues with corresponding Eisenvector:
+(-1+1j) --- [0.70710678+0.j         0.        +0.70710678j]
+(-1-1j) --- [0.70710678-0.j         0.        -0.70710678j]
+
+Matrix U (i.e. the eigenvectors matrix):
+[[0.70710678+0.j         0.70710678-0.j        ]
+ [0.        +0.70710678j 0.        -0.70710678j]]
+
+Matrix U^(-1) (i.e. the invers of the eigenvectors matrix):
+[[ 0.70710678+0.j          0.        -0.70710678j]
+ [ 0.70710678-0.j         -0.        +0.70710678j]]

@@ -1,0 +1,32 @@
+Started n = 4
+         25% 
+         50% 
+         75% 
+        Results of matrices: 4x4
+        Variance of the real part: 0.415262
+        Variance of the imaginary part: 0.168300
+Done 4
+Started n = 10
+         25% 
+         50% 
+         75% 
+        Results of matrices: 10x10
+        Variance of the real part: 0.309844
+        Variance of the imaginary part: 0.213243
+Done 10
+Started n = 100
+         25% 
+         50% 
+         75% 
+        Results of matrices: 100x100
+        Variance of the real part: 0.255770
+        Variance of the imaginary part: 0.245610
+Done 100
+Started n = 1000
+         25% 
+         50% 
+         75% 
+        Results of matrices: 1000x1000
+        Variance of the real part: 0.250076
+        Variance of the imaginary part: 0.249655
+Done 1000
