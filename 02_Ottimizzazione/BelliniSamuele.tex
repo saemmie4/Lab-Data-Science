@@ -1,0 +1,46 @@
+\documentclass[a4paper]{article}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage[font=it, width=0.9\linewidth]{caption}
+\usepackage{bm}
+\usepackage[hidelinks]{hyperref}
+% \usepackage{placeins} %non fa andare le figure in una sezione nella sezione dopo%
+% \usepackage[italian]{babel}
+\newcounter{count_es}
+% \captionsetup[figure]{name=Fig.}
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+
+\begin{document}
+\title{Relazione di laboratorio \\Discesa del gradiente e regressione polinomiale}
+\author{Samuele Bellini}
+\date{8 Ottobre 2025}
+\maketitle
+
+\stepcounter{count_es}
+\section*{Esercizio \arabic{count_es} - Generazione dei dati}
+I dati da generare sono 200 coppie \((x_{i}, y_{i})\), con \(x_{i}\)
+estratto da una distribuzione uniforme nell'intervallo [0,1] e \(y_{i} = \sin(2 \pi x_{i}) + \epsilon_{i}\), 
+dove \(\epsilon_{i}\) rappresenta un rumore nella misura ed è estratto da una distribuzione uniforme nell'intervallo [-0.2,0.2].
+Questi punti possono essere generati in Python tramite le linee di codice:
+\begin{lstlisting}[language=Python]
+    def RandPoint():
+        x   = np.random.rand()
+        eps = np.random.uniform(low=-0.2, high=0.2)
+        return [x, np.sin(2*np.pi*x) + eps]
+    N  = 200
+    xy = np.array([RandPoint() for i in np.arange(N)]).T    
+\end{lstlisting}
+Si ottiene così il set di dati raffigurato in \figurename~\ref{fig:es_1}, assieme
+alla curva senza il rumore dato da \(\epsilon_{i}\); dal grafico si vede bene come 
+i dati seguono la curva distanziandosi al più di 0.2 unità da essa.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.95\linewidth]{Immagini/Es_1.png}
+    \caption{Grafico dei dati generati con il rumore. In blu sono
+    riportate le 200 coppie \((x_{i}, y_{i})\), in rosso la curva \(y = \sin(2 \pi x)\). \label{fig:es_1}}
+\end{figure}
+\end{document}
